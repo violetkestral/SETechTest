@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using GameManagement.Data;
+using MediatR;
 
 namespace GameManagement
 {
@@ -20,18 +21,21 @@ namespace GameManagement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddMediatR(typeof(Startup));
 
             services.AddDbContext<GameManagementContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("GameManagementContext")));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, GameManagementContext dataContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            dataContext.Database.Migrate();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -43,7 +47,7 @@ namespace GameManagement
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Games}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -21,7 +21,7 @@ namespace GameManagement.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("GameManagement.Models.Game", b =>
+            modelBuilder.Entity("GameManagement.Models.Games", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace GameManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Game");
+                    b.ToTable("Games");
                 });
 
             modelBuilder.Entity("GameManagement.Models.Platform", b =>
@@ -60,7 +60,7 @@ namespace GameManagement.Migrations
 
             modelBuilder.Entity("GameManagement.Models.Platform", b =>
                 {
-                    b.HasOne("GameManagement.Models.Game", null)
+                    b.HasOne("GameManagement.Models.Games", null)
                         .WithMany("Platforms")
                         .HasForeignKey("GameId");
                 });

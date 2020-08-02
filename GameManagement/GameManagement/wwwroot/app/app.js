@@ -1,0 +1,1 @@
+﻿var gameManagementApp = angular.module("gameManagementApp", ["ngRoute"]);

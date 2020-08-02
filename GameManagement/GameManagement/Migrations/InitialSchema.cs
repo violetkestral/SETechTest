@@ -7,7 +7,7 @@ namespace GameManagement.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Game",
+                name: "Games",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -34,7 +34,7 @@ namespace GameManagement.Migrations
                     table.ForeignKey(
                         name: "FK_Platform_Game_GameId",
                         column: x => x.GameId,
-                        principalTable: "Game",
+                        principalTable: "Games",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -51,7 +51,7 @@ namespace GameManagement.Migrations
                 name: "Platform");
 
             migrationBuilder.DropTable(
-                name: "Game");
+                name: "Games");
         }
     }
 }

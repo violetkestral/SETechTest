@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Game Management";
+}
+
+@section Scripts
+{
+    <script src="~/app/app.js" asp-append-version="true"></script>
+    <script src="~/app/dataService.js" asp-append-version="true"></script>
+    <script src="~/app/controller.js" asp-append-version="true"></script>
+}
+
+<div ng-controller="IndexController">
+    <div id="index">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Title</th>
+                    <th>Platforms</th>
+                    <th></th>
+                </tr>
+
+                <tr ng-repeat="game in gamesList | orderBy : 'title'">
+                    <td>{{ game.title }}</td>
+                    <td><span ng-repeat="item in game.platforms">{{item.name}}, </span></td>
+
+                    <td class="text-center">
+                        <button class="btn btn-primary" ng-click="getGame(game.id)">Edit</button>
+                        <button class="btn btn-danger" ng-click="deleteGame(game.id)">Delete</button>
+                    </td>
+                </tr>
+
+                <tr ng-if="gamesList.length == 0">
+                    <td colspan="3">There are no games to display.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="addGame">
+        <h3>Add/Edit Game</h3>
+        <button type="button" class="btn btn-light" value="Add" ng-click="clear()">Add</button>
+        <div catch-validation-errors></div>
+        <form>
+            <div>
+                <input type="hidden" ng-model="gameId" />
+                <input type="text" placeholder="Title" ng-model="title" class="form-control" required />
+            </div>
+            <div class="row">
+                <div ng-repeat="platform in platforms" class="col-1">
+                    <label for="chk-{{platform.id}}">
+                        {{platform.name}}
+                        <input id="chk-{{platform.id}}" type="checkbox" ng-model="platforms[$index]" />
+                    </label>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="button" ng-click="saveGame()">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
