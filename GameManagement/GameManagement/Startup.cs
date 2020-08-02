@@ -22,6 +22,9 @@ namespace GameManagement
         {
             services.AddControllersWithViews();
             services.AddMediatR(typeof(Startup));
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             services.AddDbContext<GameManagementContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("GameManagementContext")));

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using GameManagement.Data;
 using MediatR;
@@ -30,7 +31,26 @@ namespace GameManagement.Controllers.Games
 
             public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
             {
-                return new Response{Success = true};
+                var success = false;
+                var error = "";
+
+                try
+                {
+                    var game = await _context.Games.FindAsync(request.Id);
+                    _context.Games.Remove(game);
+                    await _context.SaveChangesAsync(cancellationToken);
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    error = e.Message;
+                }
+
+                return new Response
+                {
+                    Success = success, 
+                    Error = error
+                };
             }
         }
     }

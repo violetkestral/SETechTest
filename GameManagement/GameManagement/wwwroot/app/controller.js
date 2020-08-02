@@ -1,11 +1,22 @@
-﻿gameManagementApp.controller('IndexController', function ($scope, $route, dataService) {
+﻿gameManagementApp.controller('IndexController', function ($scope,dataService) {
     getAllGames();
     getAllPlatforms();
 
+    $scope.isNewRecord = 1;
+
+    $scope.clearScope = function() {
+        clearForm();
+    };
+
     $scope.deleteGame = function (gameId) {
         var promisePost = dataService.deleteGame(gameId);
-        promisePost.then(function () {
-            $route.reload();
+        promisePost.then(function (result) {
+            if (!result.data.success) {
+                console.log("Err" + result.data.error);
+            } else {
+                getAllGames();
+                clearForm();
+            }
         },
             function (error) {
                 console.log("Err" + error);
@@ -20,8 +31,8 @@
                 var res = result.data;
                 $scope.gameId = res.id;
                 $scope.title = res.title;
-                $scope.selectedPlatforms = res.platforms;
                 $scope.isNewRecord = 0;
+                setSelectedPlatforms(res.gamePlatforms);
             },
             function (error) {
                 console.log("Err" + error);
@@ -29,10 +40,11 @@
     };
 
     $scope.saveGame = function () {
+        var platforms = getSelectedPlatforms();
         var game = {
             Id: $scope.gameId,
             Title: $scope.title,
-            Platforms: $scope.selectedPlatforms
+            Platforms: platforms
         };
 
         var promisePost;
@@ -42,8 +54,13 @@
             promisePost = dataService.editGame(game);
         };
 
-        promisePost.then(function () {
-            $route.reload();
+        promisePost.then(function (result) {
+            if (!result.data.success) {
+                console.log("Err" + result.data.error);
+            } else {
+                getAllGames();
+                clearForm();
+            }
         },
             function (error) {
                 $scope.status = 'Error: ' + error;
@@ -51,15 +68,14 @@
             });
     };
 
-    $scope.clear = function () {
+    function clearForm() {
         $scope.isNewRecord = 1;
         $scope.gameId = 0;
         $scope.title = "";
-        $scope.selectedPlatforms = [];
+        $scope.platforms = getAllPlatforms();
     };
 
     function getAllGames() {
-
         var promise = dataService.getGames();
 
         promise.then(
@@ -87,62 +103,38 @@
                 $scope.statusClass = 'label-warning';
             });
     };
+
+    function getSelectedPlatforms() {
+        var selectedPlatforms = [];
+
+        window.angular.forEach($scope.platforms, function (platform) {
+            if (platform.isSelected) {
+                selectedPlatforms.push({ Id: platform.id });
+            }
+        });
+
+        return selectedPlatforms;
+    };
+
+    function setSelectedPlatforms(gamePlatforms) {
+        var allPlatforms = $scope.platforms;
+
+        window.angular.forEach(allPlatforms, function (platform) {
+            if (gameHasPlatform(gamePlatforms, platform.id)) {
+                platform.isSelected = true;
+            } else {
+                platform.isSelected = false;
+            }
+        });
+    }
+
+    function gameHasPlatform(gamePlatforms, platformId) {
+        if (gamePlatforms != undefined) {
+            return gamePlatforms.some(function (e) {
+                return e.platformId === platformId;
+            });
+        }
+
+        return false;
+    };
 });
-//gameManagementApp.controller('EditController',
-//    [
-//        '$scope', 'game', 'platforms', 'dataService', 'errorsService',
-//        function($scope, game, platforms, dataService, errorsService) {
-
-//            var vm = this;
-
-//            vm.game = game;
-//            vm.platforms = checkPlatforms(platforms);
-//            vm.hideEditForm = function() { $scope.go('games.details', { id: game.id }) };
-//            vm.editGame = editGame;
-
-//            function editGame() {
-//                checkedPlatforms(vm.platforms);
-//                dataService.editgame(vm.game)
-//                    .then(function() {
-//                            $scope.go('games.details', { id: vm.game.id });
-//                        },
-//                        function(errorResponse) {
-//                            errorsService.throwResponseErrors(errorResponse);
-//                        });
-//            }
-
-//            function checkedPlatforms(platforms) {
-//                var selectedPlatforms = [];
-
-//                window.angular.forEach(platforms,
-//                    function(platform) {
-//                        if (platform.isSelected) {
-//                            selectedPlatforms.push({ gameId: vm.game.id, platformId: platform.id });
-//                        }
-//                    });
-
-//                vm.game.platforms = selectedPlatforms;
-//            }
-
-//            function checkPlatforms(platforms) {
-//                window.angular.forEach(platforms,
-//                    function(platform) {
-//                        if (gameOnPlatform(platform.id)) {
-//                            platform.isSelected = true;
-//                        } else {
-//                            platform.isSelected = false;
-//                        }
-//                    });
-
-//                return platforms;
-//            }
-
-//            function gameOnPlatform(platformId) {
-//                if (typeof vm.game.platforms !== 'undefined') {
-//                    return vm.game.platforms.some(function(e) {
-//                        return e.platformId === platformId;
-//                    });
-//                }
-//            }
-//        }
-//    ]);
