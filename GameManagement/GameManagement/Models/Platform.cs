@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameManagement.Models
 {
@@ -7,5 +8,6 @@ namespace GameManagement.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+        public ICollection<GamePlatform> GamePlatforms { get; set; }
     }
 }

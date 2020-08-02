@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using GameManagement.Data;
 using GameManagement.Models;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameManagement.Controllers.Games
 {
@@ -25,7 +26,10 @@ namespace GameManagement.Controllers.Games
 
             public async Task<Game> Handle(Query request, CancellationToken cancellationToken)
             {
-                return new Game { Id = 1, Title = "FF", Platforms = new[] { new Platform { Name = "PC" } }} ;
+                return await _context.Games
+                    .Include(g => g.GamePlatforms)
+                    .ThenInclude(p => p.Platform)
+                    .SingleAsync(g => g.Id == request.Id, cancellationToken: cancellationToken);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using GameManagement.Data;
 using GameManagement.Models;
@@ -23,12 +24,7 @@ namespace GameManagement.Controllers.Platforms
 
             public async Task<Platform[]> Handle(Query request, CancellationToken cancellationToken)
             {
-                return new[]
-                {
-                    new Platform { Name = "PC" }, 
-                    new Platform { Name = "PS4" },
-                    new Platform { Name = "Nintendo Switch" }
-                };
+                return _context.Platforms.ToArray();
             }
         }
     }

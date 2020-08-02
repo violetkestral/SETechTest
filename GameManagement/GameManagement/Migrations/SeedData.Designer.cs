@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameManagement.Migrations
 {
     [DbContext(typeof(GameManagementContext))]
-    [Migration("20200802212819_InitialSchema")]
-    partial class InitialSchema
+    [Migration("20200802213314_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
