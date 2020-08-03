@@ -21,8 +21,9 @@
 
                 <tr ng-repeat="game in gamesList | orderBy : 'title'">
                     <td>{{ game.title }}</td>
-                    <td><span ng-repeat="item in game.gamePlatforms">{{item.platform.name}}, </span></td>
-
+                    <td>
+                        <span ng-repeat="item in game.gamePlatforms">{{item.platform.name}}{{$last ? '' : ', '}}</span>
+                    </td>
                     <td class="text-center">
                         <button class="btn btn-primary" ng-click="getGame(game.id)">Edit</button>
                         <button class="btn btn-danger" ng-click="deleteGame(game.id)">Delete</button>

@@ -10,9 +10,9 @@ namespace GameManagement.Data
         {
         }
 
-        public DbSet<Game> Games { get; set; }
-        public DbSet<Platform> Platforms { get; set; }
-        public DbSet<GamePlatform> GamePlatforms { get; set; }
+        public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<Platform> Platforms { get; set; }
+        public virtual DbSet<GamePlatform> GamePlatforms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

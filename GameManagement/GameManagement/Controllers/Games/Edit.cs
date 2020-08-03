@@ -47,14 +47,17 @@ namespace GameManagement.Controllers.Games
                     game.Title = request.Title;
                     game.GamePlatforms.Clear();
 
-                    foreach (var platform in request.Platforms)
+                    if (request.Platforms != null)
                     {
-                        var gamePlatform = new GamePlatform
+                        foreach (var platform in request.Platforms)
                         {
-                            Game = game,
-                            PlatformId = platform.Id
-                        };
-                        await _context.GamePlatforms.AddAsync(gamePlatform, cancellationToken);
+                            var gamePlatform = new GamePlatform
+                            {
+                                Game = game,
+                                PlatformId = platform.Id
+                            };
+                            await _context.GamePlatforms.AddAsync(gamePlatform, cancellationToken);
+                        }
                     }
 
                     _context.Games.Update(game);

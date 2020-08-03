@@ -11,7 +11,6 @@ namespace GameManagement.Controllers.Games
     {
         public class Command : IRequest<Response>
         {
-            public int Id { get; set; }
             public string Title { get; set; }
             public Platform[] Platforms { get; set; }
         }
@@ -45,14 +44,17 @@ namespace GameManagement.Controllers.Games
                     };
                     await _context.Games.AddAsync(game, cancellationToken);
 
-                    foreach (var platform in request.Platforms)
+                    if (request.Platforms != null)
                     {
-                        var gamePlatform = new GamePlatform
+                        foreach (var platform in request.Platforms)
                         {
-                            Game = game,
-                            PlatformId = platform.Id
-                        };
-                        await _context.GamePlatforms.AddAsync(gamePlatform, cancellationToken);
+                            var gamePlatform = new GamePlatform
+                            {
+                                Game = game,
+                                PlatformId = platform.Id
+                            };
+                            await _context.GamePlatforms.AddAsync(gamePlatform, cancellationToken);
+                        }
                     }
 
                     await _context.SaveChangesAsync(cancellationToken);
