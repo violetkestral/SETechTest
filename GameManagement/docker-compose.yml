@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2017-CU11-ubuntu
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P@ssw0rd
+    ports: ["1433:1433"]
+  gamemanagement:
+    build:
+      context: .
+      dockerfile: GameManagement/Dockerfile
+    depends_on:
+     - sqlserver

@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManagement", "GameManagement\GameManagement.csproj", "{3D944E4A-9496-4FF1-9EA1-33817189B6B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManagement.UnitTests", "GameManagement.UnitTests\GameManagement.UnitTests.csproj", "{F3086322-020D-4898-8011-5898235E2422}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManagement.UnitTests", "GameManagement.UnitTests\GameManagement.UnitTests.csproj", "{F3086322-020D-4898-8011-5898235E2422}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{855F6498-7BD7-44C2-9DC4-D71C178D7741}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F3086322-020D-4898-8011-5898235E2422}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3086322-020D-4898-8011-5898235E2422}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3086322-020D-4898-8011-5898235E2422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{855F6498-7BD7-44C2-9DC4-D71C178D7741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{855F6498-7BD7-44C2-9DC4-D71C178D7741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{855F6498-7BD7-44C2-9DC4-D71C178D7741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{855F6498-7BD7-44C2-9DC4-D71C178D7741}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
