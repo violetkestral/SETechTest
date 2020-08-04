@@ -13,26 +13,26 @@
     <div id="index">
         <table class="table table-bordered">
             <tbody>
-                <tr>
-                    <th>Title</th>
-                    <th>Platforms</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>Title</th>
+                <th>Platforms</th>
+                <th></th>
+            </tr>
 
-                <tr ng-repeat="game in gamesList | orderBy : 'title'">
-                    <td>{{ game.title }}</td>
-                    <td>
-                        <span ng-repeat="item in game.gamePlatforms">{{item.platform.name}}{{$last ? '' : ', '}}</span>
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-primary" ng-click="getGame(game.id)">Edit</button>
-                        <button class="btn btn-danger" ng-click="deleteGame(game.id)">Delete</button>
-                    </td>
-                </tr>
+            <tr ng-repeat="game in gamesList | orderBy : 'title'">
+                <td>{{ game.title }}</td>
+                <td>
+                    <span ng-repeat="item in game.gamePlatforms">{{item.platform.name}}{{$last ? '' : ', '}}</span>
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-primary" ng-click="getGame(game.id)">Edit</button>
+                    <button class="btn btn-danger" ng-click="deleteGame(game.id)">Delete</button>
+                </td>
+            </tr>
 
-                <tr ng-if="gamesList.length == 0">
-                    <td colspan="3">There are no games to display.</td>
-                </tr>
+            <tr ng-if="gamesList.length == 0">
+                <td colspan="3">There are no games to display.</td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -41,12 +41,12 @@
         <div catch-validation-errors></div>
         <form novalidate>
             <div>
-                <input type="hidden" ng-model="gameId" />
-                <input type="text" placeholder="Title" ng-model="title" class="form-control" required />
+                <input type="hidden" ng-model="gameId"/>
+                <input type="text" placeholder="Title" ng-model="title" class="form-control" required/>
             </div>
             <div class="row">
                 <div ng-repeat="platform in platforms" class="col-2">
-                    <input ng-checked="platform.isSelected" ng-model="platform.isSelected" type="checkbox" ng-true-value="true" ng-false-value="false" /> {{ platform.name }}
+                    <input ng-checked="platform.isSelected" ng-model="platform.isSelected" type="checkbox" ng-true-value="true" ng-false-value="false"/> {{ platform.name }}
                 </div>
             </div>
             <div class="float-right">

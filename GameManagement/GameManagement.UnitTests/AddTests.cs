@@ -1,8 +1,8 @@
 using System.Linq;
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using GameManagement.Controllers.Games;
 using GameManagement.Data;
+using GameManagement.Functions.Games;
 using GameManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -57,7 +57,7 @@ namespace GameManagement.UnitTests
             fixture.Customize(new AutoMoqCustomization());
 
             var newGameTitle = "DDD";
-            var newGamePlatform = (Platform)seedPlatforms[0];
+            var newGamePlatform = (Platform)SeedPlatforms[0];
 
             //Arrange
             using (var context = new GameManagementContext(ContextOptions))

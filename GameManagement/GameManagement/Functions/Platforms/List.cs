@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using GameManagement.Data;
 using GameManagement.Models;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace GameManagement.Controllers.Platforms
+namespace GameManagement.Functions.Platforms
 {
     public class List
     {
@@ -24,7 +24,7 @@ namespace GameManagement.Controllers.Platforms
 
             public async Task<Platform[]> Handle(Query request, CancellationToken cancellationToken)
             {
-                return _context.Platforms.ToArray();
+                return await _context.Platforms.ToArrayAsync(cancellationToken);
             }
         }
     }

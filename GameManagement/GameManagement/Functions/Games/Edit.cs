@@ -4,13 +4,15 @@ using System.Threading.Tasks;
 using GameManagement.Data;
 using GameManagement.Models;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace GameManagement.Controllers.Games
+namespace GameManagement.Functions.Games
 {
-    public class Add
+    public class Edit
     {
         public class Command : IRequest<Response>
         {
+            public int Id { get; set; }
             public string Title { get; set; }
             public Platform[] Platforms { get; set; }
         }
@@ -23,7 +25,6 @@ namespace GameManagement.Controllers.Games
 
         public class CommandHandler : IRequestHandler<Command, Response>
         {
-
             private readonly GameManagementContext _context;
 
             public CommandHandler(GameManagementContext context)
@@ -38,14 +39,14 @@ namespace GameManagement.Controllers.Games
 
                 try
                 {
-                    var game = new Game
-                    {
-                        Title = request.Title
-                    };
-                    await _context.Games.AddAsync(game, cancellationToken);
+                    var game = await _context.Games
+                        .Include(g => g.GamePlatforms)
+                        .SingleAsync(g => g.Id == request.Id, cancellationToken);
+
+                    game.Title = request.Title;
+                    game.GamePlatforms.Clear();
 
                     if (request.Platforms != null)
-                    {
                         foreach (var platform in request.Platforms)
                         {
                             var gamePlatform = new GamePlatform
@@ -55,7 +56,8 @@ namespace GameManagement.Controllers.Games
                             };
                             await _context.GamePlatforms.AddAsync(gamePlatform, cancellationToken);
                         }
-                    }
+
+                    _context.Games.Update(game);
 
                     await _context.SaveChangesAsync(cancellationToken);
                     success = true;
@@ -67,7 +69,7 @@ namespace GameManagement.Controllers.Games
 
                 return new Response
                 {
-                    Success = success, 
+                    Success = success,
                     Error = error
                 };
             }

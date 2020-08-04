@@ -7,19 +7,19 @@ namespace GameManagement.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.InsertData(
-                table: "Platforms",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "PC" });
+                "Platforms",
+                new[] {"Id", "Name"},
+                new object[] {1, "PC"});
 
             migrationBuilder.InsertData(
-                table: "Platforms",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 2, "PS4" });
+                "Platforms",
+                new[] {"Id", "Name"},
+                new object[] {2, "PS4"});
 
             migrationBuilder.InsertData(
-                table: "Platforms",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 3, "Nintendo Switch" });
+                "Platforms",
+                new[] {"Id", "Name"},
+                new object[] {3, "Nintendo Switch"});
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

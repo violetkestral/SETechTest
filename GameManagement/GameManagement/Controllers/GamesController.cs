@@ -1,21 +1,20 @@
 ﻿using System.Threading.Tasks;
-using GameManagement.Controllers.Games;
+using GameManagement.Functions.Games;
 using GameManagement.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameManagement.Controllers
 {
-
     [Route("api/games")]
     public class GamesController : Controller
     {
+        private readonly IMediator _mediator;
+
         public GamesController(IMediator mediator)
         {
             _mediator = mediator;
         }
-
-        private readonly IMediator _mediator;
 
         [HttpGet("all")]
         public async Task<Game[]> List([FromQuery] List.Query query)

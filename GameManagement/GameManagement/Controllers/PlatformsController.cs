@@ -1,22 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using GameManagement.Controllers.Platforms;
+﻿using System.Threading.Tasks;
+using GameManagement.Functions.Platforms;
 using GameManagement.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameManagement.Controllers
 {
-
     [Route("api/platforms")]
     public class PlatformsController : Controller
     {
+        private readonly IMediator _mediator;
+
         public PlatformsController(IMediator mediator)
         {
             _mediator = mediator;
         }
-
-        private readonly IMediator _mediator;
 
         [HttpGet("all")]
         public async Task<Platform[]> List([FromQuery] List.Query query)

@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using GameManagement.Data;
 using MediatR;
 
-namespace GameManagement.Controllers.Games
+namespace GameManagement.Functions.Games
 {
     public class Delete
     {
         public class Command : IRequest<Response>
         {
-            public int Id { get;set; }
+            public int Id { get; set; }
         }
 
         public class Response
@@ -21,7 +21,6 @@ namespace GameManagement.Controllers.Games
 
         public class CommandHandler : IRequestHandler<Command, Response>
         {
-
             private readonly GameManagementContext _context;
 
             public CommandHandler(GameManagementContext context)
@@ -48,7 +47,7 @@ namespace GameManagement.Controllers.Games
 
                 return new Response
                 {
-                    Success = success, 
+                    Success = success,
                     Error = error
                 };
             }

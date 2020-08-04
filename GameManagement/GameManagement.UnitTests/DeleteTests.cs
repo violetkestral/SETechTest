@@ -1,9 +1,7 @@
-using System.Linq;
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using GameManagement.Controllers.Games;
 using GameManagement.Data;
-using GameManagement.Models;
+using GameManagement.Functions.Games;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 

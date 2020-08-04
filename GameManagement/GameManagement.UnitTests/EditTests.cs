@@ -1,8 +1,8 @@
 using System.Linq;
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using GameManagement.Controllers.Games;
 using GameManagement.Data;
+using GameManagement.Functions.Games;
 using GameManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -62,10 +62,10 @@ namespace GameManagement.UnitTests
             fixture.Customize(new AutoMoqCustomization());
 
             var gameId = 1;
-            var gameTitle = ((Game)seedGames[0]).Title;
+            var gameTitle = ((Game)SeedGames[0]).Title;
             var platforms = new[]
             {
-                (Platform)seedPlatforms[0]
+                (Platform)SeedPlatforms[0]
             };
 
             //Arrange
@@ -87,7 +87,7 @@ namespace GameManagement.UnitTests
                 var game = context.Games
                     .Include(g => g.GamePlatforms)
                     .ThenInclude(p => p.Platform)
-                    .SingleOrDefaultAsync(g => g.Id == gameId).Result; ;
+                    .SingleOrDefaultAsync(g => g.Id == gameId).Result;
 
                 //Assert
                 Assert.True(response.Success);

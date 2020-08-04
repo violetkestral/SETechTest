@@ -22,14 +22,14 @@ namespace GameManagement.UnitTests
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
                 
-                context.AddRange(seedPlatforms);
-                context.AddRange(seedGames);
+                context.AddRange(SeedPlatforms);
+                context.AddRange(SeedGames);
 
                 context.SaveChanges();
             }
         }
 
-        public object[] seedPlatforms = {
+        public object[] SeedPlatforms = {
             new Platform
             {
                 Name = "XXX"
@@ -44,7 +44,7 @@ namespace GameManagement.UnitTests
             }
         };
 
-        public object[] seedGames = {
+        public object[] SeedGames = {
             new Game
             {
                 Title = "AAA"

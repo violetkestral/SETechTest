@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using GameManagement.Models;
+﻿using GameManagement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameManagement.Data
 {
@@ -17,10 +17,10 @@ namespace GameManagement.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Platform>().HasData(
-                new Platform { Id = 1, Name = "PC" },
-                new Platform { Id = 2, Name = "PS4" },
-                new Platform { Id = 3, Name = "Nintendo Switch" }
-                );
+                new Platform {Id = 1, Name = "PC"},
+                new Platform {Id = 2, Name = "PS4"},
+                new Platform {Id = 3, Name = "Nintendo Switch"}
+            );
         }
     }
 }

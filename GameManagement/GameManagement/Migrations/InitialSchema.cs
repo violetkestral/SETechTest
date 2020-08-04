@@ -7,34 +7,28 @@ namespace GameManagement.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Games",
-                columns: table => new
+                "Games",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Games", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Games", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Platforms",
-                columns: table => new
+                "Platforms",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Platforms", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Platforms", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "GamePlatforms",
-                columns: table => new
+                "GamePlatforms",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
@@ -45,40 +39,40 @@ namespace GameManagement.Migrations
                 {
                     table.PrimaryKey("PK_GamePlatforms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GamePlatforms_Games_GameId",
-                        column: x => x.GameId,
-                        principalTable: "Games",
-                        principalColumn: "Id",
+                        "FK_GamePlatforms_Games_GameId",
+                        x => x.GameId,
+                        "Games",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GamePlatforms_Platforms_PlatformId",
-                        column: x => x.PlatformId,
-                        principalTable: "Platforms",
-                        principalColumn: "Id",
+                        "FK_GamePlatforms_Platforms_PlatformId",
+                        x => x.PlatformId,
+                        "Platforms",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-            
-            migrationBuilder.CreateIndex(
-                name: "IX_GamePlatforms_GameId",
-                table: "GamePlatforms",
-                column: "GameId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GamePlatforms_PlatformId",
-                table: "GamePlatforms",
-                column: "PlatformId");
+                "IX_GamePlatforms_GameId",
+                "GamePlatforms",
+                "GameId");
+
+            migrationBuilder.CreateIndex(
+                "IX_GamePlatforms_PlatformId",
+                "GamePlatforms",
+                "PlatformId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GamePlatforms");
+                "GamePlatforms");
 
             migrationBuilder.DropTable(
-                name: "Games");
+                "Games");
 
             migrationBuilder.DropTable(
-                name: "Platforms");
+                "Platforms");
         }
     }
 }

@@ -1,7 +1,7 @@
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using GameManagement.Controllers.Games;
 using GameManagement.Data;
+using GameManagement.Functions.Games;
 using GameManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -36,8 +36,8 @@ namespace GameManagement.UnitTests
                 var games = handler.Handle(command, new System.Threading.CancellationToken()).Result;
 
                 //Assert
-                Assert.Equal(seedGames.Length,games.Length);
-                Assert.Equal(((Game)seedGames[0]).Title,games[0].Title);
+                Assert.Equal(SeedGames.Length,games.Length);
+                Assert.Equal(((Game)SeedGames[0]).Title,games[0].Title);
             }
         }
     }

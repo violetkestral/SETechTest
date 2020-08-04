@@ -5,7 +5,7 @@ using GameManagement.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameManagement.Controllers.Games
+namespace GameManagement.Functions.Games
 {
     public class Get
     {
@@ -16,7 +16,6 @@ namespace GameManagement.Controllers.Games
 
         public class QueryHandler : IRequestHandler<Query, Game>
         {
-
             private readonly GameManagementContext _context;
 
             public QueryHandler(GameManagementContext context)
@@ -29,7 +28,7 @@ namespace GameManagement.Controllers.Games
                 return await _context.Games
                     .Include(g => g.GamePlatforms)
                     .ThenInclude(p => p.Platform)
-                    .SingleAsync(g => g.Id == request.Id, cancellationToken: cancellationToken);
+                    .SingleAsync(g => g.Id == request.Id, cancellationToken);
             }
         }
     }

@@ -1,67 +1,67 @@
-﻿gameManagementApp.service('dataService', function ($http) {
+﻿gameManagementApp.service("dataService",
+    function($http) {
 
-    var gamesRoutePrefix = "/api/games";
+        const gamesRoutePrefix = "/api/games";
 
-    this.getGames = function () {
+        this.getGames = () => {
+            const requestUrl = gamesRoutePrefix + "/all";
 
-        var requestUrl = gamesRoutePrefix + "/all";
+            return $http({
+                method: "GET",
+                url: requestUrl
+            });
+        };
 
-        return $http({ method: "GET", url: requestUrl });
-    };
+        this.getGame = (gameId) => {
+            const requestUrl = gamesRoutePrefix + "/game/" + gameId;
 
-    this.getGame = function (gameId) {
+            return $http({
+                method: "GET",
+                url: requestUrl,
+                transformResponse: (data) => {
+                    return window.angular.fromJson(data);
+                }
+            });
+        };
 
-        var requestUrl = gamesRoutePrefix + "/game/" + gameId;
+        this.editGame = (data) => {
+            const requestUrl = gamesRoutePrefix + "/edit";
 
-        return $http({
-            method: "GET",
-            url: requestUrl,
-            transformResponse: function (data) {
-                data = window.angular.fromJson(data);
-                return data;
-            }
-        });
-    };
+            return $http({
+                method: "POST",
+                url: requestUrl,
+                data: data,
+                headers: { 'Content-Type': "application/json" }
+            });
+        };
 
-    this.editGame = function (data) {
+        this.addGame = (data) => {
+            const requestUrl = gamesRoutePrefix + "/add";
 
-        var requestUrl = gamesRoutePrefix + "/edit";
+            return $http({
+                method: "POST",
+                url: requestUrl,
+                data: data,
+                headers: { 'Content-Type': "application/json" }
+            });
+        };
 
-        return $http({
-            method: "POST",
-            url: requestUrl,
-            data: data,
-            headers: { 'Content-Type': 'application/json' }
-        });
-    };
+        this.deleteGame = (gameId) => {
+            var requestUrl = gamesRoutePrefix + "/delete/" + gameId;
 
-    this.addGame = function (data) {
+            return $http({
+                method: "DELETE",
+                url: requestUrl,
+                headers: { 'Content-Type': "application/json" }
+            });
+        };
 
-        var requestUrl = gamesRoutePrefix + "/add";
+        this.getPlatforms = () => {
+            const requestUrl = "/api/platforms/all";
 
-        return $http({
-            method: "POST",
-            url: requestUrl,
-            data: data,
-            headers: { 'Content-Type': 'application/json' }
-        });
-    };
-
-    this.deleteGame = function (gameId) {
-
-        var requestUrl = gamesRoutePrefix + "/delete/" + gameId;
-
-        return $http({
-            method: "DELETE",
-            url: requestUrl,
-            headers: { 'Content-Type': 'application/json' }
-        });
-    };
-
-    this.getPlatforms = function () {
-
-        var requestUrl = "/api/platforms/all";
-
-        return $http({ method: "GET", url: requestUrl });
-    };
-});
+            return $http({
+                method: "GET",
+                url: requestUrl
+            });
+        };
+    });
